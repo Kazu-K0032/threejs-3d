@@ -1,0 +1,18 @@
+{
+  // 保存時に末尾の改行を補い、行末の空白を消す（markdownlint の MD047 / MD009 に合わせる）
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  // シェルスクリプト（.claude/hooks/*.sh）が CRLF で壊れないよう、新規ファイルの改行を LF にする
+  "files.eol": "\n",
+  // JavaScript と CSS は、保存時に oxfmt で整形する（lefthook.yml の claude-edit と同じ対象）
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode",
+    "editor.formatOnSave": true
+  }
+  // スペルチェックの除外語は、ここ（cSpell.words）ではなくリポジトリ直下の cspell.json に置く。
+  // cspell の CLI（CI のスペルチェック）は cSpell.words を読まないため、拡張機能と CLI の両方が読む cspell.json にまとめる
+}

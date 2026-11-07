@@ -1,0 +1,7 @@
+# シェルスクリプト（.claude/hooks/*.sh など）は、core.autocrlf=true の環境でも LF にする。CRLF だと Linux の bash が \r を読めず動かない
+*.sh text eol=lf
+
+# oxfmt は既定で LF に整形する。core.autocrlf=true の Windows でも、整形の対象の拡張子は LF にそろえる
+*.js text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf

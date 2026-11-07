@@ -1,0 +1,53 @@
+# Lint・整形のツールの定義。.claude/hooks/post-edit-lint.sh が、Claude が編集したファイルを渡して claude-edit を動かす。
+# Ref: https://lefthook.dev/
+#
+# ツールの足し方:
+#   - commands に 1 つずつ書く。glob で対象の拡張子を絞り、run の {staged_files} に編集したファイルが入る
+#   - 整形のツールはファイルを書き換える形で、Lint のツールは問題があれば失敗で終える形で書く。失敗した結果だけが Claude に返る
+#   - Lint のツールは、警告でも 0 以外で終える形にする。0 で終えると、問題が Claude に返らない
+#   - 整形を先に動かすため、priority を整形 1・Lint 2 にする。書いた順ではなく、piped: true と priority で順が決まる
+#   - ツールが入っていないときは黙って飛ばす。npm で入れたツールは PATH に無いため、node_modules/.bin/ の下を指す
+#     例: run: '[ -x node_modules/.bin/<ツール> ] || exit 0; node_modules/.bin/<ツール> {staged_files}'
+#   - run に二重引用符を書かない。Windows では、二重引用符を含むコマンドが崩れる。全体を単一引用符で囲む
+#   - ツールの置き場所がルートでないときは、root にそのディレクトリを書く。{staged_files} は root からの相対パスになる
+#
+# 人のコミットにも同じ検査をかけるときは、pre-commit に同じコマンドを書き、lefthook install を実行する。
+claude-edit:
+  piped: true
+  commands:
+    format:
+      priority: 1
+      glob: '*.{js,mjs,css}'
+      run: '[ -x node_modules/.bin/oxfmt ] || exit 0; node_modules/.bin/oxfmt {staged_files}'
+    lint:
+      priority: 2
+      glob: '*.{js,mjs}'
+      run: '[ -x node_modules/.bin/oxlint ] || exit 0; node_modules/.bin/oxlint --deny-warnings {staged_files}'
+
+# 人のコミットのメッセージを、commitlint.config.mjs の規約に当てる。lefthook install で Git のフックを入れたときだけ動く。
+# commitlint が入っていないとき（Node のプロジェクトでないときなど）は、黙って飛ばす。
+commit-msg:
+  commands:
+    commitlint:
+      run: '[ -x node_modules/.bin/commitlint ] || exit 0; node_modules/.bin/commitlint --edit {1}'
+
+# 人のコミット・push にも検査をかけるときの書き方の例。使うときは、コメントを外して run を書く。
+# pre-commit:
+#   # マージのコミットでは動かさない。取り込んだ側のファイルまで書き換えてしまうため
+#   skip: [merge]
+#   commands:
+#     format:
+#       run: '...'
+#       # 整形で直したファイルをステージに置き直す。部分的にステージした変更の退避と戻しは、版を追って直されてきたため
+#       # （Ref: https://github.com/evilmartians/lefthook/blob/master/CHANGELOG.md の 2.1.16・2.2.2 など）、
+#       # 使うときはファイルの先頭に min_version を書き、古い版で動かさない
+#       # CI・手元で全ファイルを検査するときは、lefthook run pre-commit --all-files --no-stage-fixed のように流す。
+#       # stage_fixed は手で流したときも効き、整形したファイルをステージに置くため、後の git diff --exit-code が整形漏れを見逃す。
+#       # git diff --exit-code の代わりに --fail-on-changes を付けてもよい。ステージに置く前に、ジョブの前後の変更を比べて失敗にするため
+#       stage_fixed: true
+# pre-push:
+#   commands:
+#     protected-branch:
+#       # push 先の ref を標準入力で受け取る。受け取らないと、HEAD:main のような形の push 先を見られないため
+#       use_stdin: true
+#       run: '...'
