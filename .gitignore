@@ -3,3 +3,18 @@ dist/
 .vite/
 *.log
 .DS_Store
+Thumbs.db
+
+# Claude Code の作業ファイル（コミット文の下書き・スキルの出力先）
+tmp.md
+tmp/
+
+# 個人用の Claude Code 設定（共有するのは .claude/settings.json と CLAUDE.md）
+.claude/settings.local.json
+CLAUDE.local.md
+
+# 秘匿情報（雛形の *.example はコミットする）
+.env
+.env.*
+!.env.example
+!.env.*.example
