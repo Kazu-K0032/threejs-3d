@@ -74,9 +74,10 @@ ops.on('complete', () => {
   ui.renderKpis();
   refresh();
 });
+// 全タスクを終えたら、KPI の数値もすべて最初の値へ戻す（件数は、完了のたびに増減するため）
+const initialKpi = structuredClone(KPI);
 ops.on('reset', () => {
-  KPI.ready = 86;
-  KPI.rate = 72;
+  Object.assign(KPI, initialKpi);
   ui.renderKpis();
 });
 
@@ -87,11 +88,19 @@ refresh();
 // 狭い画面では詳細パネルが 3D を覆うので、最初は閉じておく
 if (window.innerWidth <= 900) ui.showDetail(false);
 
-// 詳細パネルで隠れる幅の半分だけ描画を右へずらして、倉庫の中心を見える範囲に置く
+// 注文詳細で隠れる分だけ描画をずらして、倉庫の中心を、見える範囲の中央に置く。
+// 広い画面では右の詳細パネルの幅の半分だけ左へ、狭い画面では下のシートが隠す分だけ上へずらす
 function updateViewShift() {
   const detail = document.getElementById('detail');
-  const visible = ui.isDetailVisible() && window.innerWidth > 900;
-  stage.setViewShift(visible ? (detail.offsetWidth + 16) / 2 : 0, 0);
+  if (!ui.isDetailVisible()) {
+    stage.setViewShift(0, 0);
+  } else if (window.innerWidth > 900) {
+    stage.setViewShift((detail.offsetWidth + 16) / 2, 0);
+  } else {
+    const visibleTop = document.querySelector('.kpis').getBoundingClientRect().bottom;
+    const visibleBottom = window.innerHeight - 12 - detail.offsetHeight;
+    stage.setViewShift(0, window.innerHeight / 2 - (visibleTop + visibleBottom) / 2);
+  }
 }
 window.addEventListener('detail-toggle', updateViewShift);
 window.addEventListener('resize', updateViewShift);
