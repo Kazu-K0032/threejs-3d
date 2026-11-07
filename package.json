@@ -9,7 +9,11 @@
     "preview": "vite preview",
     "lint": "oxlint --deny-warnings",
     "format": "oxfmt \"**/*.{js,mjs,css}\"",
-    "format:check": "oxfmt --check \"**/*.{js,mjs,css}\""
+    "format:check": "oxfmt --check \"**/*.{js,mjs,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "three": "^0.170.0"
@@ -17,8 +21,12 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@playwright/test": "^1.65.0",
+    "@vitest/coverage-v8": "^5.1.0",
+    "happy-dom": "^21.0.4",
     "oxfmt": "^0.77.0",
     "oxlint": "^1.92.0",
-    "vite": "^6.0.7"
+    "vite": "^6.4.0",
+    "vitest": "^5.1.0"
   }
 }

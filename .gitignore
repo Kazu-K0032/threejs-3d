@@ -2,6 +2,11 @@ node_modules/
 dist/
 .vite/
 *.log
+
+# テストの生成物（カバレッジのレポート・E2E の結果）
+coverage/
+test-results/
+playwright-report/
 .DS_Store
 Thumbs.db
 

@@ -149,6 +149,9 @@ function pickHover() {
   else hoverTag.hide();
 }
 
+// 開発サーバーのときだけ、E2E テストが 3D の位置を画面の座標へ変換できるよう、内部を公開する（ビルドでは取り除かれる）
+if (import.meta.env.DEV) window.__app = { stage, world, ops, select };
+
 // ---------- ループ ----------
 const clock = new THREE.Clock();
 let lastClock = '';
