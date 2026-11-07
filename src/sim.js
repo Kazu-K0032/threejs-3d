@@ -121,8 +121,12 @@ export class Operations {
   }
 
   clearStaging() {
-    for (const child of [...this.staging.children]) {
-      this.tween(0.4, (k) => child.scale.setScalar(Math.max(0.001, 1 - k)), () => this.staging.remove(child));
+    for (const child of this.staging.children) {
+      this.tween(
+        0.4,
+        (k) => child.scale.setScalar(Math.max(0.001, 1 - k)),
+        () => this.staging.remove(child),
+      );
     }
     this.slotIndex = 0;
   }
@@ -148,6 +152,8 @@ export class Operations {
   }
 
   update(dt, time) {
+    // ループの途中で this.tweens から要素を外し、done の中で新しい tween を足すため、配列のコピーを回す
+    // oxlint-disable-next-line unicorn/no-useless-spread
     for (const tw of [...this.tweens]) {
       tw.t += dt;
       const k = Math.min(1, tw.t / tw.duration);
@@ -174,7 +180,11 @@ export class Operations {
           }
           // 残りがあれば、次のパレットをすぐ床に出しておく
           if (this.current.total - this.current.ready > 1) {
-            this.tween(1.2, () => {}, () => this.ensureSpotPallet(this.current, true));
+            this.tween(
+              1.2,
+              () => {},
+              () => this.ensureSpotPallet(this.current, true),
+            );
           }
         }
         break;
