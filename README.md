@@ -23,6 +23,7 @@ README は**どこに何があるかを示す入口**として扱う。内容そ
 - スペルチェックの設定と除外語: [cspell.json](cspell.json)
 - Lint・整形のツールと、コミットのメッセージの検査の定義: [lefthook.yml](lefthook.yml)
 - 整形・Lint の設定: [.oxfmtrc.json](.oxfmtrc.json)・[.oxlintrc.json](.oxlintrc.json)
+- テストの設定: [vitest.config.js](vitest.config.js)・[playwright.config.js](playwright.config.js)
 
 ## ドキュメント系
 

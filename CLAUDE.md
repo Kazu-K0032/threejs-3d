@@ -118,6 +118,12 @@ threejs-3d/
 │   ├── ui.js                             # UI の描画と操作
 │   ├── style.css                         # UI のスタイル
 │   └── scene/                            # three.js のシーン（stage・warehouse・props・markers・textures）
+├── tests/
+│   ├── unit/                             # 単体テスト（Vitest）
+│   ├── integration/                      # 結合テスト（Vitest）
+│   ├── e2e/                              # E2E テスト（Playwright）
+│   ├── helpers/                          # テストの共通の部品（タスクの複製・時間を進める関数・index.html の読み込み）
+│   └── setup.js                          # canvas の代用品（happy-dom は 2D コンテキストを返さないため）
 ├── .gitattributes                        # シェルスクリプト（*.sh）などの改行を LF に固定する
 ├── .gitignore
 ├── commitlint.config.mjs                 # コミットメッセージ（Conventional Commits）の検証設定
@@ -126,9 +132,11 @@ threejs-3d/
 ├── lefthook.yml                          # Lint・整形のツール（編集後のフックが使う）と、コミットのメッセージの検査の定義
 ├── .oxfmtrc.json                         # oxfmt（整形）の設定
 ├── .oxlintrc.json                        # oxlint（Lint）の設定
-├── package.json                          # 依存パッケージ（three・vite と、Lint・整形・コミット検証のツール）
-├── sample.jpg                            # UI の参照画像（画面右下の Reference ボタンで重ねる）
+├── package.json                          # 依存パッケージ（three・vite と、Lint・整形・テスト・コミット検証のツール）と、npm のコマンド
+├── playwright.config.js                  # E2E テスト（Playwright）の設定
+├── sample.jpg                            # UI の参照画像（画面左下の Reference ボタンで重ねる）
 ├── vite.config.js                        # Vite の設定
+├── vitest.config.js                      # 単体・結合テスト（Vitest）の設定とカバレッジの下限
 └── README.md
 ```
 
