@@ -1,0 +1,9 @@
+参考: https://x.com/ClaudeCode_love/status/2116677851651146183
+UIの一部: ./sample.jpg
+
+▼手順
+1. https://github.com/Kazu-K0032?tab=repositories で public で新規リポジトリを作る（name: threejs-3d）
+2. mainブランチでpushしローカルとリモートの連携を完成させる
+3. Xポストを元に同じようなものをthree.jsで作れるように仕様を固める
+4. UIの一部として @sample.jpg を導入してみる
+
