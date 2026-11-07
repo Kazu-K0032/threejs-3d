@@ -33,7 +33,10 @@ export class RouteRibbon {
       const u = i / n;
       const p = curve.getPointAt(u);
       const t = curve.getTangentAt(u);
-      side.set(t.z, 0, -t.x).normalize().multiplyScalar(ROUTE_WIDTH / 2);
+      side
+        .set(t.z, 0, -t.x)
+        .normalize()
+        .multiplyScalar(ROUTE_WIDTH / 2);
       positions.push(p.x + side.x, 0, p.z + side.z, p.x - side.x, 0, p.z - side.z);
       const v = (u * length) / ROUTE_TILE;
       uvs.push(v, 1, v, 0);
@@ -96,7 +99,14 @@ export class SelectionMarker {
     }
     this.glow = new THREE.Mesh(
       new THREE.PlaneGeometry(3.4, 3.0),
-      new THREE.MeshBasicMaterial({ map: glowTexture(), color: '#3b82f6', transparent: true, opacity: 0.55, depthWrite: false, toneMapped: false }),
+      new THREE.MeshBasicMaterial({
+        map: glowTexture(),
+        color: '#3b82f6',
+        transparent: true,
+        opacity: 0.55,
+        depthWrite: false,
+        toneMapped: false,
+      }),
     );
     this.glow.rotation.x = -Math.PI / 2;
     this.glow.position.y = 0.015;

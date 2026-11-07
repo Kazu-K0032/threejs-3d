@@ -82,7 +82,12 @@ export function loadLayout(rng, style = 'carton') {
   const out = [];
   if (style === 'wrap') {
     const h = 0.75 + rng() * 0.45;
-    out.push({ kind: 'wrap', p: [0, PALLET.top + h / 2, 0], s: [1.16, h, 0.98], c: WRAP_COLORS[Math.floor(rng() * WRAP_COLORS.length)] });
+    out.push({
+      kind: 'wrap',
+      p: [0, PALLET.top + h / 2, 0],
+      s: [1.16, h, 0.98],
+      c: WRAP_COLORS[Math.floor(rng() * WRAP_COLORS.length)],
+    });
     return out;
   }
   const layers = 2 + Math.floor(rng() * 2);
@@ -199,7 +204,12 @@ export function createRack({ bays = 5, levels = 2, bayW = 2.8, depth = 1.1, leve
 
   let sign = null;
   if (label) {
-    const material = new THREE.MeshBasicMaterial({ map: signTexture(label), transparent: true, side: THREE.DoubleSide, toneMapped: false });
+    const material = new THREE.MeshBasicMaterial({
+      map: signTexture(label),
+      transparent: true,
+      side: THREE.DoubleSide,
+      toneMapped: false,
+    });
     sign = new THREE.Mesh(new THREE.PlaneGeometry(1.15, 0.9), material);
     sign.position.set(0.15, height + 0.65, 0.05);
     group.add(sign);
@@ -360,7 +370,10 @@ export function createTruck(rng) {
     for (const z of [-0.6, 0.6]) {
       if (i > 3 && z > 0) continue;
       const base = new THREE.Matrix4().makeTranslation(-2.6 + i * 1.05, y0 + 0.05, z);
-      batch.addItems(base, loadLayout(rng, 'carton').filter((b) => b.p[1] < 1.5));
+      batch.addItems(
+        base,
+        loadLayout(rng, 'carton').filter((b) => b.p[1] < 1.5),
+      );
     }
   }
   batch.build(group);

@@ -1,6 +1,7 @@
 const $ = (sel, root = document) => root.querySelector(sel);
 const icon = (name, cls = 'i') => `<svg class="${cls}"><use href="#i-${name}" /></svg>`;
-const escape = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const escape = (s) =>
+  String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 const STATUS_CLASS = {
   Preparing: 'is-active',
@@ -44,7 +45,11 @@ export function createUI({ tasks, kpi, onSelect }) {
     setKpi('kpi-pending', kpi.pending, { delta: `${kpi.pendingDelta}%` });
     setKpi('kpi-ready', kpi.ready, { delta: `${kpi.readyDelta}%`, sub: `out of ${kpi.readyGoal} today` });
     setKpi('kpi-forklifts', kpi.forklifts, { delta: kpi.forkliftDelta, sub: `of ${kpi.forkliftTotal} available` });
-    setKpi('kpi-rate', kpi.rate, { format: (v) => `${v}%`, delta: `${kpi.rateDelta}%`, sub: `target ${kpi.rateTarget}%` });
+    setKpi('kpi-rate', kpi.rate, {
+      format: (v) => `${v}%`,
+      delta: `${kpi.rateDelta}%`,
+      sub: `target ${kpi.rateTarget}%`,
+    });
     const circumference = 2 * Math.PI * 17;
     const donut = $('[data-donut]');
     donut.style.strokeDasharray = `${circumference}`;
@@ -149,7 +154,9 @@ export function createUI({ tasks, kpi, onSelect }) {
 
   function matches(q) {
     const s = q.trim().toLowerCase();
-    return tasks.filter((t) => !s || [t.id, t.order, t.zone, t.customer, t.destination].some((v) => v.toLowerCase().includes(s)));
+    return tasks.filter(
+      (t) => !s || [t.id, t.order, t.zone, t.customer, t.destination].some((v) => v.toLowerCase().includes(s)),
+    );
   }
   function showResults(q) {
     const list = matches(q);
@@ -157,7 +164,8 @@ export function createUI({ tasks, kpi, onSelect }) {
     results.innerHTML = list.length
       ? list
           .map(
-            (t) => `<button type="button" data-id="${escape(t.id)}"><b>${escape(t.id)}</b><span>${escape(t.zone)} · ${escape(t.customer)}</span><em class="badge ${STATUS_CLASS[t.status]}">${escape(t.status)}</em></button>`,
+            (t) =>
+              `<button type="button" data-id="${escape(t.id)}"><b>${escape(t.id)}</b><span>${escape(t.zone)} · ${escape(t.customer)}</span><em class="badge ${STATUS_CLASS[t.status]}">${escape(t.status)}</em></button>`,
           )
           .join('')
       : '<p class="empty">No matching tasks</p>';

@@ -214,7 +214,9 @@ function buildShell(root, rng) {
     const shutter = mesh(box(0.12, 1.1, doorW - 0.1, x + 0.05, doorH - 0.55, door.z), MAT.white);
     root.add(shutter);
     for (let i = 0; i < 4; i++) {
-      root.add(mesh(box(0.13, 0.03, doorW - 0.1, x + 0.06, doorH - 0.15 - i * 0.27, door.z), MAT.wallTrim, { cast: false }));
+      root.add(
+        mesh(box(0.13, 0.03, doorW - 0.1, x + 0.06, doorH - 0.15 - i * 0.27, door.z), MAT.wallTrim, { cast: false }),
+      );
     }
     // 番号
     const decal = textDecal(door.label, { color: 'rgba(90,108,140,0.75)', px: 160 });
@@ -280,7 +282,10 @@ function floorText(root, lines, x, z, height, yaw, opts) {
   const decal = textDecal(lines, opts);
   const geo = new THREE.PlaneGeometry(height * decal.aspect, height);
   geo.rotateX(-Math.PI / 2);
-  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: decal.texture, transparent: true, depthWrite: false }));
+  const m = new THREE.Mesh(
+    geo,
+    new THREE.MeshBasicMaterial({ map: decal.texture, transparent: true, depthWrite: false }),
+  );
   m.position.set(x, 0.012, z);
   m.rotation.y = yaw;
   root.add(m);
@@ -298,7 +303,10 @@ function floorArrow(root, x, z, yaw, size = 1) {
   shape.closePath();
   const geo = new THREE.ShapeGeometry(shape);
   geo.rotateX(-Math.PI / 2);
-  const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: '#5d6f8f', transparent: true, opacity: 0.55, depthWrite: false }));
+  const m = new THREE.Mesh(
+    geo,
+    new THREE.MeshBasicMaterial({ color: '#5d6f8f', transparent: true, opacity: 0.55, depthWrite: false }),
+  );
   m.scale.setScalar(size);
   m.position.set(x, 0.013, z);
   m.rotation.y = yaw;
@@ -328,7 +336,8 @@ function buildPacking(root, rng, updaters) {
   for (const [i, x] of [-4, -0.4, 3.2].entries()) {
     const table = new THREE.Group();
     table.add(mesh(box(2.6, 0.08, 1.0, 0, 0.9, 0), MAT.white));
-    for (const dx of [-1.2, 1.2]) for (const dz of [-0.42, 0.42]) table.add(mesh(box(0.06, 0.9, 0.06, dx, 0.45, dz), MAT.steel));
+    for (const dx of [-1.2, 1.2])
+      for (const dz of [-0.42, 0.42]) table.add(mesh(box(0.06, 0.9, 0.06, dx, 0.45, dz), MAT.steel));
     table.add(mesh(box(2.4, 0.04, 0.8, 0, 0.3, 0), MAT.steel));
     table.add(mesh(box(0.55, 0.36, 0.05, -0.7, 1.32, -0.25), MAT.screen));
     table.add(mesh(box(0.06, 0.25, 0.06, -0.7, 1.05, -0.28), MAT.dark));

@@ -19,7 +19,8 @@ document.getElementById('ref-image').src = sampleUrl;
 
 // 画面の時計（シミュレーション上の時刻。実時間と同じ速さで進む）
 const clockStart = performance.now();
-const clockMinutes = () => CLOCK_START.hour * 60 + CLOCK_START.minute + Math.floor((performance.now() - clockStart) / 60000);
+const clockMinutes = () =>
+  CLOCK_START.hour * 60 + CLOCK_START.minute + Math.floor((performance.now() - clockStart) / 60000);
 const clockText = () => {
   const m = clockMinutes();
   return `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;

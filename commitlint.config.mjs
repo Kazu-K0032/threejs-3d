@@ -13,20 +13,7 @@ export default {
     // 許可する type を明示列挙し、表記揺れ（chorxe 等のタイポ）を弾く。
     // 例に挙げたタイポを、スペルチェック（cspell）の検出から外す。cspell:ignore chorxe
     // 値の意味はコミット規約（aidd プラグインの `/aidd:commit` が参照する commit-rule）が SSOT。
-    'type-enum': [
-      2,
-      'always',
-      [
-        'feat',
-        'fix',
-        'docs',
-        'style',
-        'refactor',
-        'perf',
-        'test',
-        'chore',
-      ],
-    ],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'chore']],
     // 件名は日本語で書くため、英語前提のケース（小文字始まり等）チェックを無効化する。
     'subject-case': [0],
     // 日本語は 1 文字の情報量が多いため、デフォルト連動の header-max-length(100) と揃えて 100 文字を上限にする。
