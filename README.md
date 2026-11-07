@@ -4,38 +4,30 @@ three.js で、倉庫オペレーションのアイソメトリック 3D シー�
 
 ![参照 UI](./sample.jpg)
 
-## 動かし方
+README は**どこに何があるかを示す入口**として扱う。内容そのものは各ドキュメントに置き、ここには、各サブツリーの入口（`docs/README.md` など）・ルートの設定ファイル・外部サービスへのリンクだけを書く。
 
-```bash
-npm install
-npm run dev
-```
+## 各環境のリンク
 
-ブラウザで表示された URL（既定は `http://localhost:5173/`）を開く。
+### ローカル
 
-## できること
+- アプリ: <http://localhost:5173/>
 
-- フォークリフトがピック位置から出荷待機エリアへパレットを運び、進捗と KPI が更新される
-- 3D のパレット、または下部の Upcoming Tasks をクリックすると、注文詳細が切り替わりカメラが移動する
-- 検索欄（`/` キーで移動）に ID・ゾーン・顧客名を入れて Enter で選択する
-- 左下の Reference ボタンで `sample.jpg` を重ねて見比べる
-- ドラッグで回転、右ドラッグでパン、ホイールでズーム
+## ディレクトリ構成
 
-## 構成
+[CLAUDE.md](CLAUDE.md) を参照。
 
-```text
-index.html            UI のマークアップ
-src/main.js           3D・シミュレーション・UI をつなぐエントリーポイント
-src/data.js           タスクと KPI の初期データ
-src/sim.js            担当フォークリフトの運搬シミュレーション
-src/ui.js             UI の描画と操作
-src/style.css         UI のスタイル
-src/scene/stage.js    レンダラー・カメラ・ライト・OrbitControls
-src/scene/warehouse.js 倉庫のレイアウト
-src/scene/props.js    ラック・パレット・フォークリフトなどの部品
-src/scene/markers.js  経路の帯・選択枠・ラベル
-src/scene/textures.js Canvas で作るテクスチャ
-docs/spec.md          仕様
-```
+## 開発支援ツール
 
-仕様の詳細は [docs/spec.md](./docs/spec.md) を参照。
+- Claude Code のプラグイン: [claude-plugins](https://github.com/Kazu-K0032/claude-plugins)
+- VS Code の推奨拡張機能: [.vscode/extensions.json](.vscode/extensions.json)
+- スペルチェックの設定と除外語: [cspell.json](cspell.json)
+- Lint・整形のツールと、コミットのメッセージの検査の定義: [lefthook.yml](lefthook.yml)
+- 整形・Lint の設定: [.oxfmtrc.json](.oxfmtrc.json)・[.oxlintrc.json](.oxlintrc.json)
+
+## ドキュメント系
+
+環境構築・仕様・設計・ADR などの文書は、[docs/README.md](docs/README.md) からたどる。個別の文書へのリンクは `docs/README.md` に置き、ここには足さない。
+
+## 外部リンク系
+
+- [GitHub](https://github.com/Kazu-K0032/threejs-3d)
