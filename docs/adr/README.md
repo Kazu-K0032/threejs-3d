@@ -15,6 +15,8 @@
 
 | 日付 | 題 | 状態 |
 | --- | --- | --- |
+| [2026-11-07](2026-11-07-test-strategy.md) | test-strategy: テストピラミッドを採る | 提案中 |
+| [2026-11-07](2026-11-07-lint-and-format-tools.md) | lint-and-format-tools: Lint に oxlint、整形に oxfmt を使う | 提案中 |
 
 ## 書き方
 
